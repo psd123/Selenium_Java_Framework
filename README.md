@@ -1,5 +1,5 @@
 # Selenium WebDriver TestNG Framework
-Automating functional UI and end to end tests for www.oculus.com website. This project uses the page object model (POM) design. 
+Automating functional UI and end to end tests for https://automationintesting.online/ . This project uses the page object model (POM) design. 
 
 ## Stack & Libraries
 - Java
