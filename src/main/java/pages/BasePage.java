@@ -14,7 +14,7 @@ import com.relevantcodes.extentreports.ExtentTest;
 public class BasePage {
 
 	public static WebDriver driver;
-	String url = "https://www.oculus.com/";
+	String url = "https://automationintesting.online/";
 	public static ExtentTest logger;
 	public static ExtentReports report;
 

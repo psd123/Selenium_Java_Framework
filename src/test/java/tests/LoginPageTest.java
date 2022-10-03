@@ -16,10 +16,8 @@ public class LoginPageTest extends BasePage{
 	@Test(priority=0)
 	public void navigateToLoginPage() {
 		HomePage homePage = new HomePage(driver);
+		logger.log(LogStatus.INFO, "Clicking 'Admin panel' link");
 		homePage.clickLogInLink();
-		logger.log(LogStatus.INFO, "Clicking 'Log In or Sign Up' button");
-		homePage.clickSigninLink();
-		logger.log(LogStatus.INFO, "Clicking the 'Sign in' link");
 	}
 	
 	//* Test invalid login attempts using data from DataProvider
@@ -27,33 +25,52 @@ public class LoginPageTest extends BasePage{
 	public Object[][] getData(){
 		return new Object[][] {
 			{"InvalidEmail@gmail.com", "testing123"}, // Invalid email, correct password
-			{"testuser@yahoo.com", "InvalidPassword2"} // Correct email, Invalid password
 		};
 	}
-	
+
 	@Test(priority=1, dataProvider="accounts")
 	public void verifyInvalidLoginCredentials(String testUsername, String testPassword) {
 		LoginPage login = new LoginPage(driver);
-		login.typeUsername(testUsername);
+		logger.log(LogStatus.INFO, "Click 'Let Me Hack' button if exists");
+		login.clickLetMeHack();
 		logger.log(LogStatus.INFO, "Entering invalid username");
-		login.typePassword(testPassword);
+		login.typeUsername(testUsername);
 		logger.log(LogStatus.INFO, "Entering invalid password");
-		login.clickSignIn();
+		login.typePassword(testPassword);
 		logger.log(LogStatus.INFO, "Clicking Sign in button");
+		login.clickSignIn();
+		logger.log(LogStatus.PASS, "Log in with invalid credentials failed");
 		Assert.assertTrue(login.errorContainerDisplayed());
-		logger.log(LogStatus.PASS, "Log in with invalid crendentials failed");
 	}
-	
+
 	@Test(priority=2)
 	@Parameters({"username", "password"})
 	public void verifyLogin(String username, String password) { 
 		LoginPage login = new LoginPage(driver);
-		login.typeUsername(username);
+		logger.log(LogStatus.INFO, "Click 'Let Me Hack' button if exists");
+		login.clickLetMeHack();
 		logger.log(LogStatus.INFO, "Entering valid username");
-		login.typePassword(password);
+		login.typeUsername(username);
 		logger.log(LogStatus.INFO, "Entering valid password");
-		login.clickSignIn();
+		login.typePassword(password);
 		logger.log(LogStatus.INFO, "Clicking Sign in button");
+		login.clickSignIn();
+		logger.log(LogStatus.PASS, "Admin page loaded");
 		Assert.assertTrue(login.verifyNewPage());
 	}
+
+//	@Test(priority=3)
+//	@Parameters({"username", "password"})
+//	public void verifyContactUsDetails(String username, String password) {
+//		LoginPage login = new LoginPage(driver);
+//		logger.log(LogStatus.INFO, "Click 'Let Me Hack' button if exists");
+//		login.clickLetMeHack();
+//		logger.log(LogStatus.INFO, "Entering valid username");
+//		login.typeUsername(username);
+//		logger.log(LogStatus.INFO, "Entering valid password");
+//		login.typePassword(password);
+//		logger.log(LogStatus.INFO, "Clicking Sign in button");
+//		login.clickSignIn();
+//
+//	}
 }	
